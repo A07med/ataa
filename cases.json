@@ -1,0 +1,23 @@
+[
+  {
+    "title": "كفالة أيتام - دار العطاء",
+    "desc": "ساهم في توفير الرعاية والغذاء والتعليم لأطفال أيتام.",
+    "image": "/imges/yateem.jpg",
+    "link": "https://daralattaa.org/",
+    "group": "daralatta"
+  },
+  {
+    "title": "مساعدة أسر محتاجة - دار العطاء",
+    "desc": "ادعم الأسر المحتاجة بالأدوات المنزلية والغذاء.",
+    "image": "/imges/family.webp",
+    "link": "https://daralattaa.org/",
+    "group": "daralatta"
+  },
+  {
+    "title": "دعم طلاب علم - جمعية الرحمة",
+    "desc": "وفر لطلاب العلم مستلزمات دراسية وأقساط.",
+    "image": "/imges/study.avif",
+    "link": "https://rahma.org.om/",
+    "group": "rahma"
+  }
+]

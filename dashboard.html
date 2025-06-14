@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>عطاء - لوحة التحكم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #8a3e14;
+      --accent: #e38254;
+      --light-bg: #f6ede6;
+      --card-bg: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.05);
+      --text-dark: #3e2f25;
+      --text-light: #666;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--light-bg), #fbe9db);
+      overflow-x: hidden;
+      color: var(--text-dark);
+      transition: padding-right 0.3s ease;
+    }
+
+    body.sidebar-open {
+      padding-right: 240px;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: var(--primary);
+      color: white;
+      padding: 20px;
+      height: 100vh;
+      position: fixed;
+      right: -240px;
+      top: 0;
+      transition: right 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      margin-bottom: 10px;
+    }
+
+    .user-avatar {
+      background: white;
+      color: var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .sidebar .user-info span {
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar a i {
+      width: 18px;
+      text-align: center;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    .menu-toggle {
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 15px;
+      display: block;
+    }
+
+    .main {
+      margin-right: 0;
+      padding: 2rem;
+      transition: margin 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .sidebar {
+        right: 0;
+      }
+      .main {
+        margin-right: 240px;
+      }
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    .navbar {
+      background: linear-gradient(to left, var(--primary), #e38254);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      color: white;
+      border-radius: 12px;
+    }
+
+    .dashboard-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      margin-top: 2rem;
+    }
+
+    .dashboard-content h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background: #8a3e14;
+      color: white;
+    }
+
+    .chart-container {
+      margin-top: 3rem;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="user-info">
+      <div class="user-avatar" id="userAvatar">؟</div>
+      <span id="username">اسم المستخدم</span>
+    </div>
+    <a href="/dashboard.html"><i class="fas fa-chart-line"></i>لوحة التحكم</a>
+    <a href="/index.html"><i class="fas fa-home"></i>الرئيسية</a>
+    <a href="/donate.html"><i class="fas fa-hand-holding-heart"></i>التبرع</a>
+    <a href="/exchange.html"><i class="fas fa-sync-alt"></i>استبدال العملات</a>
+    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i>تسجيل الخروج</a>
+  </div>
+
+  <!-- ✅ MAIN -->
+  <div class="main">
+    <header class="navbar">
+      <div class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div>مرحبًا بك في لوحة التحكم</div>
+      <div style="font-weight: bold;">
+        <img src="/imges/icon.png" alt="عطاء" style="vertical-align: middle; margin-right: 5px; height: 60px;">
+        <span id="userTokens">0</span> عطاء
+      </div>
+    </header>
+
+    <section class="dashboard-content">
+      <h2>سجل التبرعات</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>الحالة</th>
+            <th>المبلغ</th>
+            <th>الإيصال</th>
+            <th>التاريخ</th>
+          </tr>
+        </thead>
+        <tbody id="donationTableBody">
+          <tr><td colspan="4">جاري التحميل...</td></tr>
+        </tbody>
+      </table>
+
+      <div class="chart-container">
+        <h3>تحليل التبرعات حسب التاريخ</h3>
+        <canvas id="donationChart" height="100"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <!-- ✅ SCRIPT -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDsXpKX0Tk6goKPF0826Q0ufh86GXuCzMM",
+      authDomain: "atta-9805b.firebaseapp.com",
+      projectId: "atta-9805b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const username = document.getElementById("username");
+    const userTokens = document.getElementById("userTokens");
+    const donationTableBody = document.getElementById("donationTableBody");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "/login.html";
+        return;
+      }
+
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if (snap.exists()) {
+        const data = snap.data();
+        username.textContent = data.name || user.email;
+        userTokens.textContent = data.tokens || 0;
+        document.getElementById("userAvatar").textContent = (data.name || user.email || "؟").charAt(0);
+      }
+
+      const q = query(collection(db, "donations"), where("user", "==", user.uid));
+      const snapshot = await getDocs(q);
+      donationTableBody.innerHTML = "";
+
+      const chartData = {};
+      if (snapshot.empty) {
+        donationTableBody.innerHTML = '<tr><td colspan="4">لا توجد تبرعات حتى الآن</td></tr>';
+      } else {
+        snapshot.forEach(docSnap => {
+          const d = docSnap.data();
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${d.case}</td>
+            <td>${d.amount} ر.ع</td>
+            <td><a href="${d.proof}" target="_blank">عرض</a></td>
+            <td>${d.date}</td>
+          `;
+          donationTableBody.appendChild(row);
+          const date = d.date.split(",")[0];
+          chartData[date] = (chartData[date] || 0) + d.amount;
+        });
+      }
+
+      const ctx = document.getElementById("donationChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(chartData),
+          datasets: [{
+            label: 'مجموع التبرعات (ر.ع)',
+            data: Object.values(chartData),
+            backgroundColor: '#8a3e14'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    });
+
+    window.logout = function () {
+      signOut(auth).then(() => {
+        window.location.href = "/login.html";
+      });
+    }
+
+    window.toggleSidebar = function () {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.body.classList.toggle("sidebar-open");
+    }
+  </script>
+</body>
+</html>
