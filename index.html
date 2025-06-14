@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -239,14 +238,14 @@
       <a href="/exchange.html">استبدال العملات</a>
     </div>
     <div class="balance">
-      <img src="/imges/icon.png" alt="عملة" style="height: 30px;">
+      <img src="images/icon.png" alt="عملة">
       <span id="userTokens">0</span> عطاء
     </div>
   </header>
 
   <!-- ✅ HERO SECTION -->
   <section class="hero">
-    <img src="/imges/logo.PNG" alt="شعار عطاء">
+    <img src="images/logo.png" alt="شعار عطاء">
     <h1>منصة عطاء الذكية</h1>
     <a href="donate.html" class="cta-button">ابدأ التبرع الآن</a>
     <p>تبرع بسهولة، اجمع العملات، واستبدلها بمكافآت رقمية محفزة</p>
@@ -261,7 +260,7 @@
     <div class="step"><div class="icon"><i class="fas fa-gift"></i></div><div class="step-number">5</div><h3>استبدلها بمكافآت</h3><p>كورسات، شارات، شهادات وأكثر</p></div>
   </section>
 
-  <!-- ✅ FIREBASE SCRIPT -->
+  <!-- ✅ FIREBASE -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
     import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -298,7 +297,6 @@
     }
   </script>
 
-  <!-- ✅ SIDEBAR TOGGLE SCRIPT -->
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
@@ -307,313 +305,3 @@
   </script>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>عطاء - الصفحة الرئيسية</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    :root {
-      --primary: #8a3e14;
-      --accent: #e38254;
-      --light-bg: #f6ede6;
-      --card-bg: #ffffff;
-      --shadow: rgba(0, 0, 0, 0.05);
-      --text-dark: #3e2f25;
-      --text-light: #666;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, var(--light-bg), #fbe9db);
-      overflow-x: hidden;
-      color: var(--text-dark);
-      transition: padding-right 0.3s ease;
-    }
-
-    body.sidebar-open {
-      padding-right: 240px;
-    }
-
-    .sidebar {
-      width: 240px;
-      background: var(--primary);
-      color: white;
-      padding: 20px;
-      height: 100vh;
-      position: fixed;
-      right: -240px;
-      top: 0;
-      transition: right 0.3s ease;
-      z-index: 999;
-    }
-
-    .sidebar.active {
-      right: 0;
-    }
-
-    .sidebar .user-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 10px;
-    }
-
-    .user-avatar {
-      background: white;
-      color: var(--primary);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .sidebar .user-info span {
-      font-size: 15px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      padding: 8px 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .sidebar a i {
-      width: 18px;
-      text-align: center;
-    }
-
-    .sidebar a:hover {
-      text-decoration: underline;
-    }
-
-    .navbar {
-      background: linear-gradient(to left, var(--primary), var(--accent));
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 8px var(--shadow);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      color: white;
-      font-weight: bold;
-      font-size: 1.3rem;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .balance {
-      display: flex;
-      align-items: center;
-      color: white;
-      font-weight: 500;
-      font-size: 0.95rem;
-      background: rgba(255,255,255,0.1);
-      padding: 6px 10px;
-      border-radius: 20px;
-    }
-
-    .balance img {
-      height: 20px;
-      margin-left: 6px;
-    }
-
-    .menu-toggle {
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-      margin-right: 15px;
-    }
-
-    .hero {
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-
-    .hero img {
-      height: 150px;
-      margin-bottom: 1rem;
-    }
-
-    .steps {
-      padding: 4rem 2rem;
-      background: linear-gradient(135deg, #fdf6ef, #fff);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .step {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 20px var(--shadow);
-    }
-
-    .step .icon {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .step-number {
-      background-color: #8a3e14;
-      color: white;
-      font-size: 1.2rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem auto;
-      font-weight: bold;
-    }
-
-    .cta-button {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #8a3e14;
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 500;
-    }
-  </style>
-</head>
-<body>
-  <!-- ✅ SIDEBAR -->
-  <div class="sidebar" id="sidebar">
-    <div class="user-info">
-      <div class="user-avatar" id="userAvatar">؟</div>
-      <span id="username">اسم المستخدم</span>
-    </div>
-    <a href="/dashboard.html"><i class="fas fa-chart-line"></i>لوحة التحكم</a>
-    <a href="/index.html"><i class="fas fa-home"></i>الرئيسية</a>
-    <a href="/donate.html"><i class="fas fa-hand-holding-heart"></i>التبرع</a>
-    <a href="/exchange.html"><i class="fas fa-sync-alt"></i>استبدال العملات</a>
-    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i>تسجيل الخروج</a>
-  </div>
-
-  <!-- ✅ NAVBAR -->
-  <header class="navbar">
-    <div class="menu-toggle" onclick="toggleSidebar()">
-      <i class="fas fa-bars"></i>
-    </div>
-    <div class="logo">عطاء</div>
-    <div class="nav-links">
-      <a href="/index.html">الرئيسية</a>
-      <a href="/donate.html">تبرع</a>
-      <a href="/exchange.html">استبدال العملات</a>
-    </div>
-    <div class="balance">
-      <img src="/imges/icon.png" alt="عملة" style="height: 30px;">
-      <span id="userTokens">0</span> عطاء
-    </div>
-  </header>
-
-  <!-- ✅ HERO SECTION -->
-  <section class="hero">
-    <img src="/imges/logo.PNG" alt="شعار عطاء">
-    <h1>منصة عطاء الذكية</h1>
-    <a href="donate.html" class="cta-button">ابدأ التبرع الآن</a>
-    <p>تبرع بسهولة، اجمع العملات، واستبدلها بمكافآت رقمية محفزة</p>
-  </section>
-
-  <!-- ✅ STEPS SECTION -->
-  <section class="steps">
-    <div class="step"><div class="icon"><i class="fas fa-hand-pointer"></i></div><div class="step-number">1</div><h3>اختر الحالة</h3><p>تصفح الحالات واختر من يستحق تبرعك</p></div>
-    <div class="step"><div class="icon"><i class="fas fa-money-bill-wave"></i></div><div class="step-number">2</div><h3>تبرع بمبلغ بسيط</h3><p>تبرع حتى بريال واحد</p></div>
-    <div class="step"><div class="icon"><i class="fas fa-upload"></i></div><div class="step-number">3</div><h3>أرسل الإثبات</h3><p>ارفع صورة الإيصال داخل التطبيق</p></div>
-    <div class="step"><div class="icon"><i class="fas fa-coins"></i></div><div class="step-number">4</div><h3>اجمع عملات عطاء</h3><p>كل ريال = عملة رقمية</p></div>
-    <div class="step"><div class="icon"><i class="fas fa-gift"></i></div><div class="step-number">5</div><h3>استبدلها بمكافآت</h3><p>كورسات، شارات، شهادات وأكثر</p></div>
-  </section>
-
-  <!-- ✅ FIREBASE SCRIPT -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-    import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDsXpKX0Tk6goKPF0826Q0ufh86GXuCzMM",
-      authDomain: "atta-9805b.firebaseapp.com",
-      projectId: "atta-9805b"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = "/login.html";
-        return;
-      }
-      const snap = await getDoc(doc(db, "users", user.uid));
-      if (snap.exists()) {
-        const data = snap.data();
-        document.getElementById("username").textContent = data.name || user.email || "مستخدم";
-        document.getElementById("userAvatar").textContent = (data.name || user.email || "؟").charAt(0);
-        document.getElementById("userTokens").textContent = data.tokens || 0;
-      }
-    });
-
-    window.logout = function () {
-      signOut(auth).then(() => {
-        window.location.href = "/login.html";
-      });
-    }
-  </script>
-
-  <!-- ✅ SIDEBAR TOGGLE SCRIPT -->
-  <script>
-    function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("active");
-      document.body.classList.toggle("sidebar-open");
-    }
-  </script>
-</body>
-</html>
->>>>>>> 87fffa689ff92b3e3e0f7e83950deed451715e33
