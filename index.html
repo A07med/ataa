@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -238,14 +239,14 @@
       <a href="/exchange.html">استبدال العملات</a>
     </div>
     <div class="balance">
-      <img src="images/icon.png" alt="عملة">
+      <img src="/imges/icon.png" alt="عملة" style="height: 30px;">
       <span id="userTokens">0</span> عطاء
     </div>
   </header>
 
   <!-- ✅ HERO SECTION -->
   <section class="hero">
-    <img src="images/logo.png" alt="شعار عطاء">
+    <img src="/imges/logo.PNG" alt="شعار عطاء">
     <h1>منصة عطاء الذكية</h1>
     <a href="donate.html" class="cta-button">ابدأ التبرع الآن</a>
     <p>تبرع بسهولة، اجمع العملات، واستبدلها بمكافآت رقمية محفزة</p>
@@ -260,7 +261,7 @@
     <div class="step"><div class="icon"><i class="fas fa-gift"></i></div><div class="step-number">5</div><h3>استبدلها بمكافآت</h3><p>كورسات، شارات، شهادات وأكثر</p></div>
   </section>
 
-  <!-- ✅ FIREBASE -->
+  <!-- ✅ FIREBASE SCRIPT -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
     import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -297,6 +298,7 @@
     }
   </script>
 
+  <!-- ✅ SIDEBAR TOGGLE SCRIPT -->
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
